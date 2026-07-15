@@ -1,0 +1,16 @@
+{
+  "name": "queuemirror",
+  "version": "1.0.0",
+  "description": "QueueMirror MERN Wait Intelligence Platform",
+  "private": true,
+  "scripts": {
+    "install-all": "npm install --prefix client --legacy-peer-deps && npm install --prefix server",
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "build-client": "npm run build --prefix client",
+    "build-server": "npm run build --prefix server",
+    "start": "node server/dist/index.js"
+  },
+  "dependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
