@@ -1,0 +1,287 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+@font-face {
+  font-family: 'Moonscape';
+  src: url('/src/assets/fonts/Moonscape.otf') format('opentype'),
+       url('/src/assets/fonts/Moonscape.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Granetha';
+  src: url('/src/assets/fonts/Granetha.otf') format('opentype'),
+       url('/src/assets/fonts/Granetha.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Colors - Light Mode (Light Sky Accent Theme) */
+  --outline-variant: #c3c6d7;
+  --inverse-primary: #bae6fd;
+  --outline: #737686;
+  --surface-container-highest: #e1e2ed;
+  --surface-variant: #e1e2ed;
+  --inverse-surface: #2e3039;
+  --on-primary-fixed-variant: #0369a1;
+  --primary-container: #0ea5e9;
+  --primary: #0284c7;
+  --surface-tint: #0284c7;
+  --primary-fixed-dim: #78d5ef;
+  --surface-container: #ededf9;
+  --surface-dim: #d9d9e5;
+  --tertiary-fixed: #d8e2ff;
+  --on-error-container: #93000a;
+  --surface-container-high: #e7e7f3;
+  --surface-container-lowest: #ffffff;
+  --on-tertiary: #ffffff;
+  --on-surface-variant: #434655;
+  --on-secondary-fixed: #082f49;
+  --surface-bright: #faf8ff;
+  --on-secondary-fixed-variant: #0369a1;
+  --inverse-on-surface: #f0f0fb;
+  --primary-fixed: #e0f2fe;
+  --on-secondary-container: #fffbff;
+  --on-secondary: #ffffff;
+  --on-tertiary-fixed-variant: #004395;
+  --background: #faf8ff;
+  --surface: #faf8ff;
+  --on-primary-fixed: #082f49;
+  --on-primary-container: #eeefff;
+  --secondary-container: #0ea5e9;
+  --error-container: #ffdad6;
+  --on-tertiary-container: #edf0ff;
+  --tertiary-fixed-dim: #adc6ff;
+  --on-tertiary-fixed: #001a42;
+  --on-background: #191b23;
+  --surface-container-low: #f3f3fe;
+  --tertiary: #0369a1;
+  --secondary: #0284c7;
+  --secondary-fixed: #bae6fd;
+  --on-primary: #ffffff;
+  --on-surface: #191b23;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --secondary-fixed-dim: #bae6fd;
+  --tertiary-container: #0f69dc;
+
+  /* Border Radii - Light Mode */
+  --radius-default: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+
+  /* Transitions */
+  --theme-transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.dark {
+  /* Colors - Dark Mode / Glacier Glassmorphism (Pitch Black / AMOLED Light Sky Edition) */
+  --outline-variant: #1a1c23;
+  --inverse-primary: #0369a1;
+  --outline: #474b5c;
+  --surface-container-highest: #1a1c23;
+  --surface-variant: #1f212a;
+  --inverse-surface: #e6e1e5;
+  --on-primary-fixed-variant: #bae6fd;
+  --primary-container: #0284c7;
+  --primary: #38bdf8;
+  --surface-tint: #38bdf8;
+  --primary-fixed-dim: #38bdf8;
+  --surface-container: #0c0d12;
+  --surface-dim: #050507;
+  --tertiary-fixed: #ffb4ab;
+  --on-error-container: #ffdad6;
+  --surface-container-high: #12141c;
+  --surface-container-lowest: #000000;
+  --on-tertiary: #690005;
+  --on-surface-variant: #a0aec0;
+  --on-secondary-fixed: #bae6fd;
+  --surface-bright: #2d3748;
+  --on-secondary-fixed-variant: #4a4458;
+  --inverse-on-surface: #313033;
+  --primary-fixed: #bae6fd;
+  --on-secondary-container: #e8def8;
+  --on-secondary: #332d41;
+  --on-tertiary-fixed-variant: #93000a;
+  --background: #000000;
+  --surface: #000000;
+  --on-primary-fixed: #bae6fd;
+  --on-primary-container: #cbe6ff;
+  --secondary-container: #0369a1;
+  --error-container: #93000a;
+  --on-tertiary-container: #ffdad6;
+  --tertiary-fixed-dim: #ffb4ab;
+  --on-tertiary-fixed: #410002;
+  --on-background: #f7fafc;
+  --surface-container-low: #07080b;
+  --tertiary: #ffb4ab;
+  --secondary: #ccc2dc;
+  --secondary-fixed: #e8def8;
+  --on-primary: #ffffff;
+  --on-surface: #f7fafc;
+  --error: #ef4444;
+  --on-error: #690005;
+  --secondary-fixed-dim: #ccc2dc;
+  --tertiary-container: #93000a;
+
+  /* Border Radii - Dark Mode */
+  --radius-default: 12px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}
+
+body {
+  transition: var(--theme-transition);
+  font-family: 'Inter', sans-serif;
+}
+
+header, nav, main, section, footer, div, button, input, select, textarea, span, p, h1, h2, h3, h4, h5, h6 {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Icons */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+}
+
+.filled-icon {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Animations */
+.pulse-marker {
+  animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  80% { transform: scale(2); opacity: 0; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+.map-marker {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+.marker-red {
+  background-color: #ba1a1a;
+  box-shadow: 0 0 0 0 rgba(186, 26, 26, 0.7);
+  animation-name: pulse-red;
+}
+.marker-amber {
+  background-color: #d97706;
+  box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.7);
+  animation-name: pulse-amber;
+}
+.marker-green {
+  background-color: #16a34a;
+  box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7);
+  animation-name: pulse-green;
+}
+
+@keyframes pulse-red {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(186, 26, 26, 0.7); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(186, 26, 26, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(186, 26, 26, 0); }
+}
+@keyframes pulse-amber {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.7); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(217, 119, 6, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(217, 119, 6, 0); }
+}
+@keyframes pulse-green {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(22, 163, 74, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+}
+
+.data-bar-enter {
+  animation: grow-up 1s ease-out forwards;
+  transform-origin: bottom;
+  transform: scaleY(0);
+}
+
+@keyframes grow-up {
+  to { transform: scaleY(1); }
+}
+
+/* Glassmorphism Panel for Dark Mode */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dark .glass-panel {
+  background: rgba(12, 13, 18, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Timeline Custom Styles */
+.timeline-line::before {
+  content: '';
+  position: absolute;
+  left: 19px;
+  top: 40px;
+  bottom: -16px;
+  width: 2px;
+  background-color: var(--outline-variant);
+  z-index: 0;
+}
+.timeline-item:last-child .timeline-line::before {
+  display: none;
+}
+
+/* Leaflet Map Height & Styles */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  background: var(--surface-container-lowest);
+  z-index: 1;
+}
+
+/* Only invert the map tiles in dark mode */
+.dark .leaflet-tile-pane {
+  filter: invert(100%) hue-rotate(180deg) brightness(85%) contrast(90%);
+}
+
+/* Style Leaflet Popups for Dark Mode */
+.dark .leaflet-popup-content-wrapper {
+  background: #12141c !important;
+  color: var(--on-background) !important;
+  border: 1px solid var(--outline-variant);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.7);
+  border-radius: 12px;
+}
+
+.dark .leaflet-popup-tip {
+  background: #12141c !important;
+  border: 1px solid var(--outline-variant);
+}
+
+.dark .leaflet-popup-close-button {
+  color: var(--on-surface-variant) !important;
+}
+
+.dark .leaflet-popup-content {
+  color: var(--on-background) !important;
+}
+
