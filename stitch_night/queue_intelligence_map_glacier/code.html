@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+
+<html class="h-full dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QueueMirror - Live Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline-variant": "#3f484e",
+                      "inverse-primary": "#006686",
+                      "outline": "#899298",
+                      "surface-container-highest": "#333537",
+                      "surface-variant": "#3f484e",
+                      "inverse-surface": "#e1e2e4",
+                      "on-primary-fixed-variant": "#004d66",
+                      "primary-container": "#004d66",
+                      "primary": "#7dd3fc",
+                      "surface-tint": "#73d1ff",
+                      "primary-fixed-dim": "#73d1ff",
+                      "surface-container": "#1e2022",
+                      "surface-dim": "#111415",
+                      "tertiary-fixed": "#e6deff",
+                      "on-error-container": "#ffdad6",
+                      "surface-container-high": "#282a2c",
+                      "surface-container-lowest": "#0c0f10",
+                      "on-tertiary": "#36265d",
+                      "on-surface-variant": "#bfc8ce",
+                      "on-secondary-fixed": "#0e1d24",
+                      "surface-bright": "#37393b",
+                      "on-secondary-fixed-variant": "#2b4b56",
+                      "inverse-on-surface": "#2e3132",
+                      "primary-fixed": "#bfe8ff",
+                      "on-secondary-container": "#cce8f6",
+                      "on-secondary": "#1d333d",
+                      "on-tertiary-fixed-variant": "#4d3d75",
+                      "background": "#111415",
+                      "surface": "#111415",
+                      "on-primary-fixed": "#001f2a",
+                      "on-primary-container": "#bfe8ff",
+                      "secondary-container": "#354b56",
+                      "error-container": "#93000a",
+                      "on-tertiary-container": "#e6deff",
+                      "tertiary-fixed-dim": "#cbbeff",
+                      "on-tertiary-fixed": "#201047",
+                      "on-background": "#e1e2e4",
+                      "surface-container-low": "#1a1c1e",
+                      "tertiary": "#cbbeff",
+                      "secondary": "#b1cbd9",
+                      "secondary-fixed": "#cce8f6",
+                      "on-primary": "#003547",
+                      "on-surface": "#e1e2e4",
+                      "error": "#ffb4ab",
+                      "on-error": "#690005",
+                      "secondary-fixed-dim": "#b1cbd9",
+                      "tertiary-container": "#4d3d75"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.75rem",
+                      "lg": "0.75rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sm": "8px",
+                      "xs": "4px",
+                      "gutter": "24px",
+                      "md": "16px",
+                      "lg": "24px",
+                      "xl": "32px",
+                      "base": "4px",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "display-lg-mobile": [
+                              "Inter"
+                      ],
+                      "mono-data": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "headline-sm": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "mono-data": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "14px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-sm": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .map-marker {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(125, 211, 252, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(125, 211, 252, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(125, 211, 252, 0); }
+        }
+        .marker-red { background-color: #ffb4ab; box-shadow: 0 0 0 0 rgba(255, 180, 171, 0.7); animation-name: pulse-red; }
+        .marker-amber { background-color: #fcd34d; box-shadow: 0 0 0 0 rgba(252, 211, 77, 0.7); animation-name: pulse-amber; }
+        .marker-green { background-color: #7dd3fc; box-shadow: 0 0 0 0 rgba(125, 211, 252, 0.7); animation-name: pulse-green; }
+
+        @keyframes pulse-red {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 180, 171, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(255, 180, 171, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 180, 171, 0); }
+        }
+        @keyframes pulse-amber {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(252, 211, 77, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(252, 211, 77, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(252, 211, 77, 0); }
+        }
+        @keyframes pulse-green {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(125, 211, 252, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(125, 211, 252, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(125, 211, 252, 0); }
+        }
+        .glass-panel {
+            background-color: rgba(17, 20, 21, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(137, 146, 152, 0.2);
+        }
+    </style>
+</head>
+<body class="h-full bg-background text-on-background font-body-md text-body-md overflow-hidden flex">
+<!-- SideNavBar (from JSON) -->
+<nav class="fixed left-0 top-0 h-full w-64 flex flex-col p-md z-40 bg-surface-container-low border-r border-outline-variant transition-all duration-200 ease-in-out hidden md:flex glass-panel">
+<!-- Header -->
+<div class="flex items-center gap-md mb-lg">
+<img alt="Organization Logo" class="w-8 h-8 rounded" data-alt="A minimalist, highly professional geometric logo design for a tech enterprise, primarily using corporate blue and crisp white. Clean lines, vector style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8LtplNj2You0ZcrAz6sGlU_OLdxOBxFiyRk2el1mgz-TUobsHMkILfmbfi7wbicyuA3n_IODVfua4WxoRIxV7E8hm2G3yt1cyVZ110l3iKVJdrL2E8NCOd6WNW_aqoSSdim7CgXymsgauIaAUTBRquKayXDm8N2Hgy8ZGj0c1jj76pVTe6E7nCrqo5pX2ArwFvbGXMIudAGXcOG9VJyb7yI5kpfplRwdtg9bu0Cs75lWe6dT1AwlH"/>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-black text-on-surface">QueueMirror</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Enterprise Intelligence</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 space-y-sm">
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-high rounded-lg transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-md bg-secondary-container/50 text-primary rounded-lg px-md py-sm border-l-4 border-primary transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span>Live Map</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-high rounded-lg transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span>Analytics</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-high rounded-lg transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span>Reports</span>
+</a>
+</div>
+<!-- CTA -->
+<div class="mt-auto pt-md border-t border-outline-variant">
+<button class="w-full bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary transition-colors py-sm px-md rounded-lg font-label-md text-label-md font-semibold flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-sm">add</span> New Analysis
+            </button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-0 md:ml-64 flex flex-col h-full relative">
+<!-- TopAppBar (from JSON) -->
+<header class="flex justify-between items-center w-full px-lg py-md max-w-container-max mx-auto bg-surface-container-low/80 backdrop-blur-md border-b border-outline-variant shadow-sm z-30 h-16 shrink-0 relative">
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden text-on-surface-variant mr-md">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<!-- Brand (Mobile only, as desktop has sidebar) -->
+<div class="md:hidden flex items-center gap-sm">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">QueueMirror</span>
+</div>
+<!-- Search Bar (on_left in JSON) -->
+<div class="hidden md:flex flex-1 max-w-md ml-lg relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-highest/50 border border-outline-variant text-on-surface rounded-full py-1.5 pl-10 pr-4 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-body-sm text-body-sm placeholder:text-outline transition-all" placeholder="Search for a location or service..." type="text"/>
+</div>
+<!-- Spacer for mobile to push actions right -->
+<div class="flex-1 md:hidden"></div>
+<!-- Trailing Actions & Profile -->
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant hover:bg-surface-container-highest rounded-full p-1.5 transition-colors cursor-pointer active:scale-95">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-highest rounded-full p-1.5 transition-colors cursor-pointer active:scale-95">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full border border-outline-variant overflow-hidden cursor-pointer ml-sm">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate executive in a modern office environment. High resolution, bright lighting, realistic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChTDXQsiHHBP4UOSP3tCdTGADIgf7HioJyAA-gyzQbmMJDN2KZXh_iUBqLy_xnOw-VfMn8DOk7F3ue8kAaviDv6wjNVIqAlGJyS0tCoRXy4t9h-zoclsLpZVcgHonKb7omOQxaM7E8H_JkSD0G0xdAOFPSpE3WBxzhdnLH0-tsCCbW-pdL_gdPA6V__XqvHU-0XH5BQQEO-aFJuQ_BufJ_7UleQQV3_lqmu7qIiRooKnZOqj9gm8et"/>
+</div>
+</div>
+</header>
+<!-- Map Container -->
+<div class="flex-1 relative bg-surface-dim overflow-hidden">
+<!-- Simulated Map Background -->
+<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=2000&amp;q=80')] bg-cover bg-center opacity-60 mix-blend-luminosity brightness-50 contrast-125" data-alt="A high-altitude, crisp, modern digital map view of a metropolitan area. The map uses a sophisticated color palette of pale grays, soft blues, and muted greens, resembling an enterprise logistics dashboard or a high-end GPS interface. Subtle grid lines and minimal text." data-location="Metropolis Center"></div>
+<!-- Map Controls overlay -->
+<div class="absolute right-lg top-lg flex flex-col gap-sm z-20">
+<button class="w-10 h-10 glass-panel text-on-surface-variant rounded shadow-sm flex items-center justify-center hover:bg-surface-container-high transition-colors" title="Zoom In">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="w-10 h-10 glass-panel text-on-surface-variant rounded shadow-sm flex items-center justify-center hover:bg-surface-container-high transition-colors" title="Zoom Out">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<button class="w-10 h-10 glass-panel text-on-surface-variant rounded shadow-sm flex items-center justify-center hover:bg-surface-container-high transition-colors mt-md" title="My Location">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+<!-- Queue Heatmap Toggle -->
+<div class="mt-md glass-panel rounded-lg p-sm shadow-sm flex flex-col items-center">
+<span class="material-symbols-outlined text-outline mb-xs text-sm">layers</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+<span class="font-label-sm text-[10px] text-on-surface-variant mt-1 text-center leading-tight">Heatmap</span>
+</div>
+</div>
+<!-- Filter Panel Overlay -->
+<div class="absolute left-lg top-lg w-64 glass-panel rounded-xl shadow-md z-20 hidden lg:block overflow-hidden">
+<div class="p-md border-b border-outline-variant bg-surface-container-low/50">
+<h2 class="font-label-md text-label-md text-on-surface">Live Filters</h2>
+</div>
+<div class="p-sm space-y-1">
+<button class="w-full flex items-center justify-between p-sm hover:bg-surface-container-high/50 rounded transition-colors text-left group">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-container text-sm">local_hospital</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">Hospitals</span>
+</div>
+<input checked="" class="rounded bg-surface-container-highest border-outline-variant text-primary focus:ring-primary focus:ring-offset-surface w-3 h-3" type="checkbox"/>
+</button>
+<button class="w-full flex items-center justify-between p-sm hover:bg-surface-container-high/50 rounded transition-colors text-left group">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container text-sm">account_balance</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">Banks</span>
+</div>
+<input checked="" class="rounded bg-surface-container-highest border-outline-variant text-primary focus:ring-primary focus:ring-offset-surface w-3 h-3" type="checkbox"/>
+</button>
+<button class="w-full flex items-center justify-between p-sm hover:bg-surface-container-high/50 rounded transition-colors text-left group">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">gavel</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">Govt Offices</span>
+</div>
+<input class="rounded bg-surface-container-highest border-outline-variant text-primary focus:ring-primary focus:ring-offset-surface w-3 h-3" type="checkbox"/>
+</button>
+</div>
+</div>
+<!-- Simulated Heatmap Layer -->
+<div class="absolute inset-0 pointer-events-none opacity-40 z-10" style="background: radial-gradient(circle at 40% 50%, rgba(255, 180, 171, 0.4) 0%, transparent 25%), radial-gradient(circle at 60% 30%, rgba(252, 211, 77, 0.3) 0%, transparent 20%);"></div>
+<!-- Map Markers -->
+<!-- Marker 1: High Congestion (Red) -->
+<div class="absolute top-[45%] left-[35%] z-20 group cursor-pointer">
+<div class="w-4 h-4 rounded-full map-marker marker-red relative z-10"></div>
+<!-- Floating Summary Card (Hover/Click State) -->
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 glass-panel rounded-xl shadow-[0_10px_15px_-3px_rgba(0,0,0,0.5)] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto transform origin-bottom scale-95 group-hover:scale-100 duration-200">
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<h3 class="font-label-md text-label-md text-on-surface font-bold">Central Gen Hospital</h3>
+<span class="bg-error-container/80 text-error text-[10px] font-bold px-1.5 py-0.5 rounded backdrop-blur">HIGH</span>
+</div>
+<div class="grid grid-cols-2 gap-sm mb-md">
+<div>
+<p class="text-[10px] text-outline uppercase tracking-wider">Serving</p>
+<p class="font-mono-data text-mono-data text-on-surface font-semibold">Token 402</p>
+</div>
+<div>
+<p class="text-[10px] text-outline uppercase tracking-wider">Est. Wait</p>
+<p class="font-mono-data text-mono-data text-error font-semibold">1h 45m</p>
+</div>
+</div>
+<button class="w-full bg-surface-container-highest/80 border border-outline-variant text-primary hover:bg-surface-container-highest transition-colors py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1">
+                            Plan Visit <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+<!-- Triangle pointer -->
+<div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 glass-panel border-t-0 border-l-0 rotate-45"></div>
+</div>
+</div>
+<!-- Marker 2: Medium Congestion (Amber) -->
+<div class="absolute top-[30%] left-[55%] z-20 group cursor-pointer">
+<div class="w-4 h-4 rounded-full map-marker marker-amber relative z-10"></div>
+<!-- Floating Summary Card -->
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 glass-panel rounded-xl shadow-[0_10px_15px_-3px_rgba(0,0,0,0.5)] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto transform origin-bottom scale-95 group-hover:scale-100 duration-200">
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<h3 class="font-label-md text-label-md text-on-surface font-bold">First National Bank</h3>
+<span class="bg-amber-900/50 text-amber-300 text-[10px] font-bold px-1.5 py-0.5 rounded backdrop-blur">MODERATE</span>
+</div>
+<div class="grid grid-cols-2 gap-sm mb-md">
+<div>
+<p class="text-[10px] text-outline uppercase tracking-wider">Serving</p>
+<p class="font-mono-data text-mono-data text-on-surface font-semibold">Teller 3</p>
+</div>
+<div>
+<p class="text-[10px] text-outline uppercase tracking-wider">Est. Wait</p>
+<p class="font-mono-data text-mono-data text-amber-400 font-semibold">25m</p>
+</div>
+</div>
+<button class="w-full bg-primary/20 border border-primary/30 text-primary hover:bg-primary/30 transition-colors py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1">
+                            Plan Visit <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+<!-- Triangle pointer -->
+<div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 glass-panel border-t-0 border-l-0 rotate-45"></div>
+</div>
+</div>
+<!-- Marker 3: Low Congestion (Green) -->
+<div class="absolute top-[60%] left-[45%] z-20 group cursor-pointer">
+<div class="w-4 h-4 rounded-full map-marker marker-green relative z-10"></div>
+<!-- Floating Summary Card -->
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 glass-panel rounded-xl shadow-[0_10px_15px_-3px_rgba(0,0,0,0.5)] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto transform origin-bottom scale-95 group-hover:scale-100 duration-200">
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<h3 class="font-label-md text-label-md text-on-surface font-bold">City Tax Office</h3>
+<span class="bg-primary/20 text-primary text-[10px] font-bold px-1.5 py-0.5 rounded backdrop-blur">CLEAR</span>
+</div>
+<div class="grid grid-cols-2 gap-sm mb-md">
+<div>
+<p class="text-[10px] text-outline uppercase tracking-wider">Serving</p>
+<p class="font-mono-data text-mono-data text-on-surface font-semibold">Desk A2</p>
+</div>
+<div>
+<p class="text-[10px] text-outline uppercase tracking-wider">Est. Wait</p>
+<p class="font-mono-data text-mono-data text-primary font-semibold">&lt; 5m</p>
+</div>
+</div>
+<button class="w-full bg-primary/20 border border-primary/30 text-primary hover:bg-primary/30 transition-colors py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1">
+                            Plan Visit <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+<!-- Triangle pointer -->
+<div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 glass-panel border-t-0 border-l-0 rotate-45"></div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

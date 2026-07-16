@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QueueMirror - User Contribution Dashboard</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration (Design System Tokens) -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline-variant": "#c3c6d7",
+                    "inverse-primary": "#b4c5ff",
+                    "outline": "#737686",
+                    "surface-container-highest": "#e1e2ed",
+                    "surface-variant": "#e1e2ed",
+                    "inverse-surface": "#2e3039",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "primary-container": "#2563eb",
+                    "primary": "#004ac6",
+                    "surface-tint": "#0053db",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "surface-container": "#ededf9",
+                    "surface-dim": "#d9d9e5",
+                    "tertiary-fixed": "#d8e2ff",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#e7e7f3",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-surface-variant": "#434655",
+                    "on-secondary-fixed": "#001551",
+                    "surface-bright": "#faf8ff",
+                    "on-secondary-fixed-variant": "#0039b5",
+                    "inverse-on-surface": "#f0f0fb",
+                    "primary-fixed": "#dbe1ff",
+                    "on-secondary-container": "#fffbff",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#004395",
+                    "background": "#faf8ff",
+                    "surface": "#faf8ff",
+                    "on-primary-fixed": "#00174b",
+                    "on-primary-container": "#eeefff",
+                    "secondary-container": "#4069f2",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-container": "#edf0ff",
+                    "tertiary-fixed-dim": "#adc6ff",
+                    "on-tertiary-fixed": "#001a42",
+                    "on-background": "#191b23",
+                    "surface-container-low": "#f3f3fe",
+                    "tertiary": "#0051b1",
+                    "secondary": "#1d4ed8",
+                    "secondary-fixed": "#dce1ff",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#191b23",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#b7c4ff",
+                    "tertiary-container": "#0f69dc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "xs": "4px",
+                    "gutter": "24px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "xl": "32px",
+                    "base": "4px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "display-lg-mobile": ["Manrope"],
+                    "mono-data": ["Inter"],
+                    "display-lg": ["Manrope"],
+                    "body-sm": ["Inter"],
+                    "headline-md": ["Manrope"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-sm": ["Manrope"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "mono-data": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        /* Ambient Shadows & Depth */
+        .elevation-1 { box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.02); }
+        .elevation-2 { box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.08); }
+        
+        /* Specific Component Tweaks */
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            left: 19px; /* center of 40px circle */
+            top: 40px;
+            bottom: -16px;
+            width: 2px;
+            background-color: theme('colors.outline-variant');
+            z-index: 0;
+        }
+        .timeline-item:last-child .timeline-line::before { display: none; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased flex h-screen overflow-hidden">
+<!-- ========================================== -->
+<!-- SIDENAVBAR (Shared Component Implementation) -->
+<!-- ========================================== -->
+<!-- Context: Visible on desktop, hidden on mobile -->
+<nav class="hidden md:flex flex-col p-md z-40 fixed left-0 top-0 h-full w-64 border-r border-outline-variant bg-surface-container-low text-primary font-label-md text-label-md transition-all duration-200 ease-in-out">
+<!-- Header -->
+<div class="mb-xl flex items-center gap-md px-md pt-sm">
+<div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center text-on-primary-container font-headline-sm font-black">
+                Q
+            </div>
+<div>
+<div class="font-headline-sm text-headline-sm font-black text-on-surface">QueueMirror</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Enterprise Intelligence</div>
+</div>
+</div>
+<!-- CTA -->
+<button class="mb-lg w-full bg-primary text-on-primary rounded-lg py-sm px-md flex justify-center items-center gap-sm font-label-md text-label-md elevation-1 hover:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+            New Analysis
+        </button>
+<!-- Navigation Links -->
+<!-- Dashboard is ACTIVE -->
+<div class="flex flex-col gap-xs flex-1">
+<a class="flex items-center gap-md bg-secondary-container text-on-secondary-container rounded-lg px-md py-sm border-l-4 border-primary transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-high rounded-lg transition-all duration-200 ease-in-out border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined">map</span>
+                Live Map
+            </a>
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-high rounded-lg transition-all duration-200 ease-in-out border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined">insights</span>
+                Analytics
+            </a>
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-high rounded-lg transition-all duration-200 ease-in-out border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined">assessment</span>
+                Reports
+            </a>
+</div>
+</nav>
+<!-- ========================================== -->
+<!-- MAIN CONTENT CANVAS -->
+<!-- ========================================== -->
+<div class="flex-1 flex flex-col md:ml-64 h-full overflow-y-auto overflow-x-hidden relative">
+<!-- TOPNAVBAR (Shared Component Implementation) -->
+<header class="flex justify-between items-center w-full px-lg py-md max-w-container-max mx-auto bg-surface border-b border-outline-variant shadow-sm top-0 z-30 sticky">
+<!-- Mobile Menu Toggle & Brand -->
+<div class="flex items-center gap-md md:hidden">
+<button class="text-on-surface-variant hover:bg-surface-container-low p-sm rounded transition-colors cursor-pointer active:scale-95 transition-transform">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="font-headline-sm text-headline-sm font-bold text-primary">QueueMirror</span>
+</div>
+<!-- Desktop Brand (Hidden if relying entirely on sidebar, but JSON implies it exists) -->
+<div class="hidden md:block">
+<span class="font-headline-sm text-headline-sm font-bold text-primary opacity-0">QueueMirror</span> <!-- Hidden visually to maintain spacing if needed, or remove -->
+</div>
+<!-- Search (Search Bar: on_left according to JSON, placing it logically in center/left for desktop) -->
+<div class="hidden md:flex flex-1 max-w-md mx-lg relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-full py-[6px] pl-xl pr-md font-body-sm text-body-sm focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all" placeholder="Search queues, stations..." type="text"/>
+</div>
+<!-- Trailing Actions & Profile -->
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant hover:bg-surface-container-low p-xs rounded-full transition-colors cursor-pointer active:scale-95 transition-transform relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full border border-surface"></span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-low p-xs rounded-full transition-colors cursor-pointer active:scale-95 transition-transform hidden sm:block">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant cursor-pointer active:scale-95 transition-transform">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A professional corporate headshot of a diverse individual, neutral background, high resolution, soft studio lighting, modern tech company aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6x_wvQJtnFSGdNq0KzzbMenZqpV33ukIYcJ0USE1gAv8fS8lgJGrDY9lKpCIwCU-cr9XjT98IXA0oasw22QNr77kbcTNZtZbktHjALzIFYpQCHdTeygu7yzcxnJyhiXvjlmS7Nm3ZQeuWnFZ--3OPFj5J0Dxz-mBvmudJ7on0mz5Y0Ut3vYZNGmw2uC5htECCmg3aUICOI188aisqx3AoQ5EKTp76vrs0wHQjPNtxOUTdJevDEVgz"/>
+</div>
+</div>
+</header>
+<!-- DASHBOARD CONTENT -->
+<main class="flex-1 w-full max-w-container-max mx-auto p-md md:p-lg lg:p-xl flex flex-col gap-xl">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-md">
+<div>
+<h1 class="font-headline-md text-headline-md text-on-surface">Welcome back, Alex.</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Here is your contribution overview for this week.</p>
+</div>
+<div class="bg-surface-container-high px-md py-sm rounded-lg flex items-center gap-sm border border-outline-variant">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<span class="font-label-md text-label-md text-on-surface" data-location="">San Francisco Area</span>
+</div>
+</div>
+<!-- IMPACT CARDS (Bento Grid) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg elevation-1 flex flex-col justify-between relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-md opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[64px] text-primary">schedule</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-xs">Hours Saved</div>
+<div class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface tracking-tight">42.5</div>
+</div>
+<div class="mt-lg flex items-center gap-xs text-tertiary">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span class="font-label-sm text-label-sm">+12% from last month</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg elevation-1 flex flex-col justify-between relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-md opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[64px] text-primary">assignment_turned_in</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-xs">Reports Submitted</div>
+<div class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface tracking-tight">128</div>
+</div>
+<div class="mt-lg flex items-center gap-xs text-on-surface-variant">
+<span class="font-label-sm text-label-sm">Top 5% in your area</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg elevation-1 flex flex-col justify-center items-center text-center relative overflow-hidden">
+<!-- Subtle background gradient pattern for the 'Level' card -->
+<div class="absolute inset-0 bg-gradient-to-br from-primary-fixed/20 to-transparent z-0"></div>
+<div class="z-10 flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mb-md elevation-2 ring-4 ring-primary-fixed">
+<span class="material-symbols-outlined text-[32px] text-on-primary" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-xs">Current Status</div>
+<div class="font-headline-sm text-headline-sm text-primary font-bold">Queue Expert</div>
+<!-- Progress Bar -->
+<div class="w-full mt-md">
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant mb-xs">
+<span>2,450 XP</span>
+<span>Legend (3k)</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full w-[80%]"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- MAIN SPLIT (Timeline & Sidebar) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mt-md">
+<!-- Left: Activity Timeline -->
+<section class="lg:col-span-8 flex flex-col gap-md">
+<div class="flex items-center justify-between border-b border-outline-variant pb-sm">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Recent Activity</h2>
+<button class="font-label-sm text-label-sm text-primary hover:underline">View All</button>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md lg:p-lg elevation-1">
+<!-- Timeline List -->
+<div class="flex flex-col">
+<!-- Item 1 (Active/Highlighted) -->
+<div class="flex gap-md relative timeline-item pb-lg">
+<div class="timeline-line relative z-10 flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center border-2 border-surface shrink-0">
+<span class="material-symbols-outlined text-tertiary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<div class="flex-1 bg-surface-container-low border-l-4 border-primary rounded-r-lg p-md -mt-xs">
+<div class="flex justify-between items-start mb-xs">
+<div class="font-label-md text-label-md text-on-surface">Verification Accepted</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">2h ago</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Your report for <span class="font-medium text-on-surface">Central Station Ticketing</span> was verified by 5 users. The queue has now been marked as "High Traffic".</p>
+<div class="mt-sm flex gap-sm">
+<span class="inline-flex items-center px-2 py-1 rounded bg-error-container text-on-error-container font-label-sm text-label-sm">High Traffic</span>
+<span class="inline-flex items-center px-2 py-1 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm">+50 XP</span>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex gap-md relative timeline-item pb-lg">
+<div class="timeline-line relative z-10 flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center border-2 border-surface shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">add_location</span>
+</div>
+</div>
+<div class="flex-1 border-b border-outline-variant pb-lg -mt-xs">
+<div class="flex justify-between items-start mb-xs">
+<div class="font-label-md text-label-md text-on-surface">New Report Submitted</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Yesterday</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">You reported a "Moderate Queue" at <span class="font-medium text-on-surface">Downtown DMV</span>. Pending verification.</p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex gap-md relative timeline-item">
+<div class="timeline-line relative z-10 flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center border-2 border-surface shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">map</span>
+</div>
+</div>
+<div class="flex-1 -mt-xs">
+<div class="flex justify-between items-start mb-xs">
+<div class="font-label-md text-label-md text-on-surface">Zone Discovered</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Oct 12</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">You were the first to report data for <span class="font-medium text-on-surface">Westside Medical Center</span> this week.</p>
+<div class="mt-sm flex gap-sm">
+<span class="inline-flex items-center px-2 py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm gap-xs">
+<span class="material-symbols-outlined text-[14px]">explore</span> Pioneer Bonus
+                                        </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right: Leaderboard & Achievements Sidebar -->
+<section class="lg:col-span-4 flex flex-col gap-lg">
+<!-- Leaderboard -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md elevation-1">
+<div class="flex items-center justify-between mb-md">
+<h3 class="font-label-md text-label-md text-on-surface uppercase tracking-wider">City Leaderboard</h3>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">emoji_events</span>
+</div>
+<div class="flex flex-col gap-sm">
+<!-- Rank 1 -->
+<div class="flex items-center gap-md p-sm rounded-lg hover:bg-surface-container-low transition-colors">
+<div class="font-label-md text-label-md w-4 text-center text-on-surface-variant">1</div>
+<img alt="User 1" class="w-8 h-8 rounded-full object-cover" data-alt="Small headshot photo of a professional woman smiling softly, neutral lighting, corporate environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAldFi9LUdis1Coa1sah0guwuXkmXgxTswLGdIJcVpfMrCeA4gN9B4F66tBl4tPMtZJPXvYls-PfvUXeww-ZZxOnUh0S6nudUPfa4KGnPpWE60kQSOWy2L762sKiwlsk-FJF1q9qHED3nTh64s4RtctiLaYFNzQMAQYTqrgl-gmzTi19iyr-FhfHR_NAncdIoD1ZZBYKghkuqOj6TufkbXItws7rh5s8YwTNG1MhrV5vkA_sepQ6DzV"/>
+<div class="flex-1">
+<div class="font-label-sm text-label-sm text-on-surface font-semibold">Sarah Jenkins</div>
+</div>
+<div class="font-mono-data text-mono-data text-primary">4,210</div>
+</div>
+<!-- Rank 2 -->
+<div class="flex items-center gap-md p-sm rounded-lg hover:bg-surface-container-low transition-colors">
+<div class="font-label-md text-label-md w-4 text-center text-on-surface-variant">2</div>
+<img alt="User 2" class="w-8 h-8 rounded-full object-cover" data-alt="Small headshot photo of a young professional man with glasses, studio lighting, modern tech vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwRkHoBWSzPtXAZj5iPFNpexABYTbVlyal7YGZoArp8QCZnMxxow8h3FSTw6jj5HsTjjNZ9TZLhAoSMmC0BF2jHh1SLzBXD5hXf3AWMPD26EHqLJ9jfB6tHvm1Jegi7nOXL-pBB-K4RURhXqeBNNNqY4sJweUTY4q-6AK_thWSI4Fj6MWCAvjymozZ9KAWmnsB-laahuX8-aHr1dsix-Vylsoomn-IqclhZK6NAGVx_9bXgqFbsuMm"/>
+<div class="flex-1">
+<div class="font-label-sm text-label-sm text-on-surface font-semibold">David Chen</div>
+</div>
+<div class="font-mono-data text-mono-data text-primary">3,850</div>
+</div>
+<!-- Rank 3 (User) -->
+<div class="flex items-center gap-md p-sm rounded-lg bg-primary-fixed-dim/20 border-l-2 border-primary">
+<div class="font-label-md text-label-md w-4 text-center text-primary">3</div>
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-sm font-bold">You</div>
+<div class="flex-1">
+<div class="font-label-sm text-label-sm text-on-surface font-semibold">Alex</div>
+</div>
+<div class="font-mono-data text-mono-data text-primary">2,450</div>
+</div>
+</div>
+</div>
+<!-- Achievements -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md elevation-1">
+<div class="flex items-center justify-between mb-md">
+<h3 class="font-label-md text-label-md text-on-surface uppercase tracking-wider">Achievements</h3>
+<span class="font-label-sm text-label-sm text-primary hover:underline cursor-pointer">See All</span>
+</div>
+<div class="grid grid-cols-2 gap-sm">
+<!-- Badge 1 -->
+<div class="bg-surface-container p-sm rounded-lg flex flex-col items-center text-center gap-xs border border-transparent hover:border-outline-variant transition-colors">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">explore</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface font-semibold">Explorer</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant leading-tight">5 New Zones</div>
+</div>
+</div>
+<!-- Badge 2 -->
+<div class="bg-surface-container p-sm rounded-lg flex flex-col items-center text-center gap-xs border border-transparent hover:border-outline-variant transition-colors">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">campaign</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface font-semibold">Reporter</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant leading-tight">100+ Reports</div>
+</div>
+</div>
+<!-- Badge 3 (Locked) -->
+<div class="bg-surface-container p-sm rounded-lg flex flex-col items-center text-center gap-xs opacity-50 grayscale">
+<div class="w-10 h-10 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">military_tech</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface font-semibold">Legend</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant leading-tight">Requires 3k XP</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- FOOTER (Shared Component Implementation) -->
+<footer class="w-full py-lg px-xl flex flex-col md:flex-row justify-between items-center gap-md max-w-container-max mx-auto mt-xl border-t border-outline-variant bg-surface-container-lowest text-on-surface-variant font-body-sm text-body-sm">
+<div class="font-label-md text-label-md font-bold text-on-surface-variant">
+                    © 2024 QueueMirror Intelligence Platform. All rights reserved.
+                </div>
+<div class="flex gap-md">
+<a class="text-on-surface-variant hover:text-primary transition-colors transition-opacity hover:opacity-80" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors transition-opacity hover:opacity-80" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors transition-opacity hover:opacity-80" href="#">API Documentation</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors transition-opacity hover:opacity-80" href="#">Support</a>
+</div>
+</footer>
+</main>
+</div>
+<!-- ========================================== -->
+<!-- FLOATING ACTION BUTTON (FAB)               -->
+<!-- ========================================== -->
+<button class="fixed bottom-lg right-lg lg:bottom-xl lg:right-xl bg-primary text-on-primary rounded-full px-lg py-md flex items-center gap-sm font-label-md text-label-md elevation-2 hover:bg-surface-tint hover:elevation-2 transition-all z-50 group active:scale-95">
+<span class="material-symbols-outlined transition-transform group-hover:rotate-12" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+        Report Live Queue
+    </button>
+</body></html>

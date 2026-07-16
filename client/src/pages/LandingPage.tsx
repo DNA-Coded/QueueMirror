@@ -152,11 +152,6 @@ export const LandingPage: React.FC = () => {
         {/* Background Gradients for glacier theme styling */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-b from-primary/10 to-transparent rounded-full blur-[100px] pointer-events-none opacity-50 dark:opacity-100"></div>
 
-        <div className="inline-flex items-center gap-xs px-md py-xs bg-surface-container-low border border-outline-variant rounded-full text-primary font-label-sm text-label-sm font-semibold mb-lg shadow-sm">
-          <span className="material-symbols-outlined text-[16px] animate-pulse">radar</span>
-          Crowd-Powered Intelligence System v1.0
-        </div>
-
         <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface font-extrabold max-w-3xl leading-tight mb-md">
           Know The Wait <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Before You Go</span>
         </h1>

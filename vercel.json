@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm install --prefix client --legacy-peer-deps && npm run build --prefix client",
+  "outputDirectory": "client/dist",
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

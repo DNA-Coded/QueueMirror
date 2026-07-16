@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QueueMirror - Queue Detail &amp; Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#7dd3fc",
+                        "primary-variant": "#bae6fd",
+                        "surface": "rgba(15, 23, 42, 0.7)",
+                        "surface-container": "rgba(30, 41, 59, 0.6)",
+                        "surface-container-low": "rgba(30, 41, 59, 0.4)",
+                        "surface-container-lowest": "rgba(15, 23, 42, 0.5)",
+                        "outline-variant": "rgba(148, 163, 184, 0.15)",
+                        "on-surface": "#f8fafc",
+                        "on-surface-variant": "#cbd5e1",
+                        "background": "#020617",
+                        "error": "#ef4444",
+                        "error-container": "rgba(220, 38, 38, 0.2)",
+                        "on-error-container": "#fca5a5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "12px",
+                        "md": "12px",
+                        "lg": "12px",
+                        "xl": "12px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "xs": "4px",
+                        "gutter": "24px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "base": "4px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "mono-data": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "mono-data": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    },
+                    "backgroundImage": {
+                        "glass-gradient": "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)"
+                    },
+                    "backdropBlur": {
+                        "glass": "12px"
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .data-bar-enter {
+            animation: grow-up 1s ease-out forwards;
+            transform-origin: bottom;
+            transform: scaleY(0);
+        }
+        @keyframes grow-up {
+            to { transform: scaleY(1); }
+        }
+        
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col relative overflow-x-hidden">
+<!-- Decorative background elements for Glassmorphism -->
+<div class="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary/10 blur-[120px] pointer-events-none z-0"></div>
+<div class="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-blue-500/10 blur-[100px] pointer-events-none z-0"></div>
+<!-- TopNavBar -->
+<header class="glass-panel w-full sticky top-0 z-50 rounded-none border-t-0 border-l-0 border-r-0">
+<div class="flex justify-between items-center w-full px-lg py-md max-w-container-max mx-auto">
+<div class="flex items-center gap-lg">
+<div class="font-headline-sm text-headline-sm font-bold text-primary flex items-center gap-sm">
+<span class="material-symbols-outlined filled-icon">radar</span>
+                    QueueMirror
+                </div>
+<nav class="hidden md:flex gap-lg">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 flex items-center gap-xs" href="#">
+<span class="material-symbols-outlined">map</span> Live Map
+                    </a>
+<a class="text-on-surface-variant font-medium hover:bg-surface-container transition-colors py-1 px-2 rounded-md flex items-center gap-xs" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+                    </a>
+<a class="text-on-surface-variant font-medium hover:bg-surface-container transition-colors py-1 px-2 rounded-md flex items-center gap-xs" href="#">
+<span class="material-symbols-outlined">insights</span> Analytics
+                    </a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant hover:bg-surface-container p-sm rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container p-sm rounded-full transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<img alt="User profile avatar" class="w-8 h-8 rounded-full border border-outline-variant object-cover ml-sm" data-alt="A small, professional user avatar portrait. Corporate modern style. Clean lighting, professional setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjX658HozMkYWl8pN1Te2qVXMcVoTUwD4msqw1dd173M2F-zC1V1plgbp5Qn9vq51xwoEJzzw8vfyl7dUbwZlzZnRQfBZ9ZBt5QohkPhlbO6DAGD31_JlHvSZ4eY9sTD-EbuEnkQw8t8m12zGR4vuPjtBt51NoCrxDHZbjPwmbKsMjUAjqpbAe5eoxzxQHaPAI7j3ufMF_F1-39g_8r12lIA9vPsdb-qSdkSLOnDNO_eud55lgVzoV"/>
+</div>
+</div>
+</header>
+<main class="flex-1 max-w-container-max mx-auto w-full px-md md:px-lg py-lg flex flex-col gap-lg relative z-10">
+<!-- Header Section -->
+<section class="flex flex-col md:flex-row justify-between items-start md:items-end gap-md pb-md border-b border-outline-variant">
+<div>
+<div class="flex items-center gap-sm mb-xs">
+<span class="bg-error-container text-on-error-container px-2 py-1 rounded-md font-label-sm text-label-sm uppercase flex items-center gap-xs backdrop-blur-sm border border-error/20">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+                        High Wait
+                    </span>
+<span class="text-on-surface-variant font-body-sm text-body-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                        Kolkata, WB
+                    </span>
+</div>
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface">Kolkata Passport Seva Kendra</h1>
+<p class="text-on-surface-variant font-body-md mt-xs">Live queue tracking &amp; historical analytics.</p>
+</div>
+<div class="glass-panel p-md rounded-xl flex flex-col items-end min-w-[200px]">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Live Token</span>
+<div class="font-display-lg text-display-lg text-primary flex items-baseline gap-xs">
+                    #482
+                    <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">Now Serving</span>
+</div>
+</div>
+</section>
+<!-- Main Stats Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-md">
+<!-- Est Wait Time (Large) -->
+<div class="md:col-span-2 glass-panel p-lg rounded-xl flex flex-col justify-between relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 text-primary opacity-10">
+<span class="material-symbols-outlined text-[120px]">schedule</span>
+</div>
+<div class="relative z-10">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm">Estimated Wait Time</h3>
+<div class="font-display-lg text-display-lg text-error flex items-baseline gap-sm mt-md">
+                        45-60 <span class="font-headline-md text-headline-md text-on-surface-variant">mins</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-sm">Based on current processing speed.</p>
+</div>
+<div class="mt-lg pt-md border-t border-outline-variant flex justify-between items-center relative z-10">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase">Your Token</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">#510</span>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase">Tokens Ahead</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">28</span>
+</div>
+</div>
+</div>
+<!-- Crowd Level -->
+<div class="glass-panel p-md rounded-xl flex flex-col">
+<div class="flex items-center gap-sm mb-md text-on-surface-variant">
+<span class="material-symbols-outlined">groups</span>
+<h3 class="font-label-md text-label-md uppercase">Crowd Level</h3>
+</div>
+<div class="flex-1 flex flex-col justify-center">
+<div class="text-error font-headline-md text-headline-md mb-sm drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]">Heavy</div>
+<div class="w-full bg-surface-container-low h-2 rounded-full overflow-hidden border border-outline-variant">
+<div class="bg-error h-full rounded-full shadow-[0_0_10px_rgba(239,68,68,0.8)]" style="width: 85%;"></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-sm">Capacity at 85%</p>
+</div>
+</div>
+<!-- Avg Speed -->
+<div class="glass-panel p-md rounded-xl flex flex-col">
+<div class="flex items-center gap-sm mb-md text-on-surface-variant">
+<span class="material-symbols-outlined">speed</span>
+<h3 class="font-label-md text-label-md uppercase">Processing Speed</h3>
+</div>
+<div class="flex-1 flex flex-col justify-center">
+<div class="text-primary font-headline-md text-headline-md mb-sm flex items-baseline gap-xs drop-shadow-[0_0_8px_rgba(125,211,252,0.4)]">
+                        1.8 <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">mins/person</span>
+</div>
+<div class="flex items-center gap-xs text-error font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px]">trending_down</span>
+                        Slower than usual
+                    </div>
+</div>
+</div>
+</section>
+<!-- Analytics & Best Time -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+<!-- Charts Area -->
+<div class="lg:col-span-2 flex flex-col gap-md">
+<div class="glass-panel p-lg rounded-xl">
+<div class="flex justify-between items-center mb-lg">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Hourly Crowd Trend</h3>
+<span class="bg-surface-container text-on-surface px-3 py-1 rounded-md font-label-sm text-label-sm border border-outline-variant">Today</span>
+</div>
+<!-- Recharts Style Bar Chart -->
+<div class="h-[200px] flex items-end justify-between gap-xs border-b border-l border-outline-variant pb-2 pl-2 relative">
+<div class="absolute left-[-24px] top-0 bottom-0 flex flex-col justify-between text-[10px] text-on-surface-variant py-2">
+<span>100%</span>
+<span>50%</span>
+<span>0%</span>
+</div>
+<div class="w-full bg-primary/30 border border-primary/40 rounded-t data-bar-enter hover:bg-primary/50 transition-colors" style="height: 30%;" title="9 AM"></div>
+<div class="w-full bg-primary/40 border border-primary/50 rounded-t data-bar-enter hover:bg-primary/60 transition-colors" style="height: 50%; animation-delay: 0.1s;" title="10 AM"></div>
+<div class="w-full bg-primary shadow-[0_0_15px_rgba(125,211,252,0.4)] rounded-t data-bar-enter" style="height: 85%; animation-delay: 0.2s;" title="11 AM (Now)"></div>
+<div class="w-full bg-error border border-error/50 shadow-[0_0_15px_rgba(239,68,68,0.4)] rounded-t data-bar-enter" style="height: 95%; animation-delay: 0.3s;" title="12 PM (Peak)"></div>
+<div class="w-full bg-surface-container-low border border-outline-variant rounded-t hover:bg-surface-container transition-colors" style="height: 60%;" title="1 PM (Est)"></div>
+<div class="w-full bg-surface-container-low border border-outline-variant rounded-t hover:bg-surface-container transition-colors" style="height: 40%;" title="2 PM (Est)"></div>
+<div class="w-full bg-surface-container-low border border-outline-variant rounded-t hover:bg-surface-container transition-colors" style="height: 20%;" title="3 PM (Est)"></div>
+<div class="w-full bg-surface-container-low border border-outline-variant rounded-t hover:bg-surface-container transition-colors" style="height: 10%;" title="4 PM (Est)"></div>
+</div>
+<div class="flex justify-between mt-sm text-[10px] text-on-surface-variant px-2">
+<span>9A</span><span>10A</span><span>11A</span><span>12P</span><span>1P</span><span>2P</span><span>3P</span><span>4P</span>
+</div>
+</div>
+</div>
+<!-- Best Time & Updates -->
+<div class="flex flex-col gap-md">
+<!-- Best Time To Visit -->
+<div class="glass-panel p-lg rounded-xl relative overflow-hidden bg-primary/10 border-primary/30">
+<div class="absolute -right-4 -bottom-4 text-primary opacity-20 blur-sm">
+<span class="material-symbols-outlined text-[100px]">wb_sunny</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-sm mb-md text-primary">
+<span class="material-symbols-outlined">wb_sunny</span>
+<h3 class="font-label-md text-label-md uppercase">Best Time To Visit</h3>
+</div>
+<div class="font-headline-md text-headline-md mb-xs text-on-surface drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">3:00 PM - 4:00 PM</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-primary">verified</span>
+                        High confidence (89%) based on 30-day data.
+                    </div>
+</div>
+</div>
+<!-- Community Updates -->
+<div class="glass-panel p-md rounded-xl flex-1">
+<h3 class="font-label-md text-label-md uppercase text-on-surface-variant mb-md flex items-center gap-sm">
+<span class="material-symbols-outlined text-[18px]">forum</span>
+                        Community Reports
+                    </h3>
+<div class="flex flex-col gap-md">
+<div class="border-l-2 border-primary pl-3">
+<p class="font-body-sm text-body-sm text-on-surface">"Servers were down for 15 mins, queue is moving again now."</p>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-xs block">10 mins ago • User A.</span>
+</div>
+<div class="border-l-2 border-outline-variant pl-3">
+<p class="font-body-sm text-body-sm text-on-surface">"Counter 3 is closed, expect delays."</p>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-xs block">45 mins ago • Verified User</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="glass-panel border-b-0 border-l-0 border-r-0 rounded-none w-full mt-xl relative z-10">
+<div class="w-full py-lg px-xl flex flex-col md:flex-row justify-between items-center gap-md max-w-container-max mx-auto">
+<span class="font-label-md text-label-md font-bold text-on-surface-variant">© 2024 QueueMirror Intelligence Platform. All rights reserved.</span>
+<div class="flex gap-md font-body-sm text-body-sm">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">API Documentation</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</div>
+</footer>
+</body></html>

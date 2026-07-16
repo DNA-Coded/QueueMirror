@@ -1,24 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
 
-@font-face {
-  font-family: 'Moonscape';
-  src: url('/src/assets/fonts/Moonscape.otf') format('opentype'),
-       url('/src/assets/fonts/Moonscape.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Granetha';
-  src: url('/src/assets/fonts/Granetha.otf') format('opentype'),
-       url('/src/assets/fonts/Granetha.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

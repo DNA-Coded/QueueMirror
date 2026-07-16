@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QueueMirror - Queue Detail &amp; Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#c3c6d7",
+                        "inverse-primary": "#b4c5ff",
+                        "outline": "#737686",
+                        "surface-container-highest": "#e1e2ed",
+                        "surface-variant": "#e1e2ed",
+                        "inverse-surface": "#2e3039",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "primary-container": "#2563eb",
+                        "primary": "#004ac6",
+                        "surface-tint": "#0053db",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "surface-container": "#ededf9",
+                        "surface-dim": "#d9d9e5",
+                        "tertiary-fixed": "#d8e2ff",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#e7e7f3",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#434655",
+                        "on-secondary-fixed": "#001551",
+                        "surface-bright": "#faf8ff",
+                        "on-secondary-fixed-variant": "#0039b5",
+                        "inverse-on-surface": "#f0f0fb",
+                        "primary-fixed": "#dbe1ff",
+                        "on-secondary-container": "#fffbff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#004395",
+                        "background": "#faf8ff",
+                        "surface": "#faf8ff",
+                        "on-primary-fixed": "#00174b",
+                        "on-primary-container": "#eeefff",
+                        "secondary-container": "#4069f2",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-container": "#edf0ff",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "on-tertiary-fixed": "#001a42",
+                        "on-background": "#191b23",
+                        "surface-container-low": "#f3f3fe",
+                        "tertiary": "#0051b1",
+                        "secondary": "#1d4ed8",
+                        "secondary-fixed": "#dce1ff",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#191b23",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#b7c4ff",
+                        "tertiary-container": "#0f69dc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "xs": "4px",
+                        "gutter": "24px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "base": "4px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "display-lg-mobile": ["Manrope"],
+                        "mono-data": ["Inter"],
+                        "display-lg": ["Manrope"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Manrope"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-sm": ["Manrope"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "mono-data": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    },
+                    "boxShadow": {
+                        "ambient-soft": "0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.02)"
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .data-bar-enter {
+            animation: grow-up 1s ease-out forwards;
+            transform-origin: bottom;
+            transform: scaleY(0);
+        }
+        @keyframes grow-up {
+            to { transform: scaleY(1); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- TopNavBar (Destination: Dashboard/Analytics, Active: Analytics semantic intent) -->
+<header class="bg-surface border-b border-outline-variant shadow-sm w-full sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-lg py-md max-w-container-max mx-auto">
+<div class="flex items-center gap-lg">
+<div class="font-headline-sm text-headline-sm font-bold text-primary flex items-center gap-sm">
+<span class="material-symbols-outlined filled-icon">radar</span>
+                    QueueMirror
+                </div>
+<nav class="hidden md:flex gap-lg">
+<!-- Intent: Live Map -> Active as we are viewing a specific live location -->
+<a class="text-primary font-bold border-b-2 border-primary pb-1 flex items-center gap-xs" href="#">
+<span class="material-symbols-outlined">map</span> Live Map
+                    </a>
+<a class="text-on-surface-variant font-medium hover:bg-surface-container-low transition-colors py-1 px-2 rounded flex items-center gap-xs" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+                    </a>
+<a class="text-on-surface-variant font-medium hover:bg-surface-container-low transition-colors py-1 px-2 rounded flex items-center gap-xs" href="#">
+<span class="material-symbols-outlined">insights</span> Analytics
+                    </a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant hover:bg-surface-container-low p-sm rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-low p-sm rounded-full transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<img alt="User profile avatar" class="w-8 h-8 rounded-full border border-outline-variant object-cover ml-sm" data-alt="A small, professional user avatar portrait. Corporate modern style. Clean lighting, professional setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjX658HozMkYWl8pN1Te2qVXMcVoTUwD4msqw1dd173M2F-zC1V1plgbp5Qn9vq51xwoEJzzw8vfyl7dUbwZlzZnRQfBZ9ZBt5QohkPhlbO6DAGD31_JlHvSZ4eY9sTD-EbuEnkQw8t8m12zGR4vuPjtBt51NoCrxDHZbjPwmbKsMjUAjqpbAe5eoxzxQHaPAI7j3ufMF_F1-39g_8r12lIA9vPsdb-qSdkSLOnDNO_eud55lgVzoV"/>
+</div>
+</div>
+</header>
+<main class="flex-1 max-w-container-max mx-auto w-full px-md md:px-lg py-lg flex flex-col gap-lg">
+<!-- Header Section -->
+<section class="flex flex-col md:flex-row justify-between items-start md:items-end gap-md pb-md border-b border-outline-variant">
+<div>
+<div class="flex items-center gap-sm mb-xs">
+<span class="bg-error-container text-on-error-container px-2 py-1 rounded font-label-sm text-label-sm uppercase flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+                        High Wait
+                    </span>
+<span class="text-on-surface-variant font-body-sm text-body-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                        Kolkata, WB
+                    </span>
+</div>
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface">Kolkata Passport Seva Kendra</h1>
+<p class="text-on-surface-variant font-body-md mt-xs">Live queue tracking &amp; historical analytics.</p>
+</div>
+<div class="bg-surface-container p-md rounded-lg border border-outline-variant flex flex-col items-end min-w-[200px]">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Live Token</span>
+<div class="font-display-lg text-display-lg text-primary flex items-baseline gap-xs">
+                    #482
+                    <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">Now Serving</span>
+</div>
+</div>
+</section>
+<!-- Main Stats Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-md">
+<!-- Est Wait Time (Large) -->
+<div class="md:col-span-2 bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-ambient-soft flex flex-col justify-between relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 text-primary opacity-5">
+<span class="material-symbols-outlined text-[120px]">schedule</span>
+</div>
+<div class="relative z-10">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm">Estimated Wait Time</h3>
+<div class="font-display-lg text-display-lg text-error flex items-baseline gap-sm mt-md">
+                        45-60 <span class="font-headline-md text-headline-md text-on-surface-variant">mins</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-sm">Based on current processing speed.</p>
+</div>
+<div class="mt-lg pt-md border-t border-outline-variant flex justify-between items-center relative z-10">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase">Your Token</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">#510</span>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase">Tokens Ahead</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">28</span>
+</div>
+</div>
+</div>
+<!-- Crowd Level -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-ambient-soft flex flex-col">
+<div class="flex items-center gap-sm mb-md text-on-surface-variant">
+<span class="material-symbols-outlined">groups</span>
+<h3 class="font-label-md text-label-md uppercase">Crowd Level</h3>
+</div>
+<div class="flex-1 flex flex-col justify-center">
+<div class="text-error font-headline-md text-headline-md mb-sm">Heavy</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-error h-full rounded-full" style="width: 85%;"></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-sm">Capacity at 85%</p>
+</div>
+</div>
+<!-- Avg Speed -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-ambient-soft flex flex-col">
+<div class="flex items-center gap-sm mb-md text-on-surface-variant">
+<span class="material-symbols-outlined">speed</span>
+<h3 class="font-label-md text-label-md uppercase">Processing Speed</h3>
+</div>
+<div class="flex-1 flex flex-col justify-center">
+<div class="text-primary font-headline-md text-headline-md mb-sm flex items-baseline gap-xs">
+                        1.8 <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">mins/person</span>
+</div>
+<div class="flex items-center gap-xs text-error font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px]">trending_down</span>
+                        Slower than usual
+                    </div>
+</div>
+</div>
+</section>
+<!-- Analytics & Best Time -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+<!-- Charts Area -->
+<div class="lg:col-span-2 flex flex-col gap-md">
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-ambient-soft">
+<div class="flex justify-between items-center mb-lg">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Hourly Crowd Trend</h3>
+<span class="bg-surface-container text-on-surface px-3 py-1 rounded font-label-sm text-label-sm">Today</span>
+</div>
+<!-- Faux Recharts Style Bar Chart -->
+<div class="h-[200px] flex items-end justify-between gap-xs border-b border-l border-outline-variant pb-2 pl-2 relative">
+<!-- Y-Axis Labels -->
+<div class="absolute left-[-24px] top-0 bottom-0 flex flex-col justify-between text-[10px] text-on-surface-variant py-2">
+<span>100%</span>
+<span>50%</span>
+<span>0%</span>
+</div>
+<!-- Bars -->
+<div class="w-full bg-secondary-fixed-dim rounded-t data-bar-enter" style="height: 30%;" title="9 AM"></div>
+<div class="w-full bg-secondary-fixed-dim rounded-t data-bar-enter" style="height: 50%; animation-delay: 0.1s;" title="10 AM"></div>
+<div class="w-full bg-primary rounded-t data-bar-enter" style="height: 85%; animation-delay: 0.2s;" title="11 AM (Now)"></div>
+<div class="w-full bg-error-container rounded-t data-bar-enter" style="height: 95%; animation-delay: 0.3s;" title="12 PM (Peak)"></div>
+<div class="w-full bg-surface-variant rounded-t" style="height: 60%;" title="1 PM (Est)"></div>
+<div class="w-full bg-surface-variant rounded-t" style="height: 40%;" title="2 PM (Est)"></div>
+<div class="w-full bg-surface-variant rounded-t" style="height: 20%;" title="3 PM (Est)"></div>
+<div class="w-full bg-surface-variant rounded-t" style="height: 10%;" title="4 PM (Est)"></div>
+</div>
+<!-- X-Axis Labels -->
+<div class="flex justify-between mt-sm text-[10px] text-on-surface-variant px-2">
+<span>9A</span><span>10A</span><span>11A</span><span>12P</span><span>1P</span><span>2P</span><span>3P</span><span>4P</span>
+</div>
+</div>
+</div>
+<!-- Best Time & Updates -->
+<div class="flex flex-col gap-md">
+<!-- Best Time To Visit -->
+<div class="bg-primary-container text-on-primary-container p-lg rounded-xl border border-primary-container shadow-ambient-soft">
+<div class="flex items-center gap-sm mb-md opacity-80">
+<span class="material-symbols-outlined">wb_sunny</span>
+<h3 class="font-label-md text-label-md uppercase">Best Time To Visit</h3>
+</div>
+<div class="font-headline-md text-headline-md mb-xs">3:00 PM - 4:00 PM</div>
+<div class="font-body-sm text-body-sm opacity-90 flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+                        High confidence (89%) based on 30-day data.
+                    </div>
+</div>
+<!-- Community Updates -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-ambient-soft flex-1">
+<h3 class="font-label-md text-label-md uppercase text-on-surface-variant mb-md flex items-center gap-sm">
+<span class="material-symbols-outlined text-[18px]">forum</span>
+                        Community Reports
+                    </h3>
+<div class="flex flex-col gap-md">
+<div class="border-l-2 border-primary pl-3">
+<p class="font-body-sm text-body-sm text-on-surface">"Servers were down for 15 mins, queue is moving again now."</p>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-xs block">10 mins ago • User A.</span>
+</div>
+<div class="border-l-2 border-surface-variant pl-3">
+<p class="font-body-sm text-body-sm text-on-surface">"Counter 3 is closed, expect delays."</p>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-xs block">45 mins ago • Verified User</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant w-full mt-xl">
+<div class="w-full py-lg px-xl flex flex-col md:flex-row justify-between items-center gap-md max-w-container-max mx-auto">
+<span class="font-label-md text-label-md font-bold text-on-surface-variant">© 2024 QueueMirror Intelligence Platform. All rights reserved.</span>
+<div class="flex gap-md font-body-sm text-body-sm">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">API Documentation</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</div>
+</footer>
+</body></html>
